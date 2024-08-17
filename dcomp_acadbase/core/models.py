@@ -2,7 +2,7 @@ import hashlib
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.core.files.storage import default_storage
-from usuarios.models import User
+from usuario.models import User
 
 # Create your models here.
 ## MODELOS CENTRAIS (pendente mudança)
