@@ -1,0 +1,5 @@
+victorcharlie
+	charliedaresenha44x2@gmail.com
+    admin123
+
+# python manage.py createsuperuser
