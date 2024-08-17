@@ -6,6 +6,7 @@ from usuarios.models import User
 
 # Create your models here.
 ## MODELOS CENTRAIS (pendente mudança)
+## MONOGRAFIA
 class Monografia(models.Model):
     STATUS_CHOICES = [
         ('DEFENDIDA, APROVADA', 'Defendida, Aprovada'),   
@@ -26,7 +27,7 @@ class Monografia(models.Model):
     is_rascunho = models.BooleanField(default=False, verbose_name='Rascunho') ##Lembrete: Quando for draft/rascunho, alguns campos podem ser blank
 
     def save(self, *args, **kwargs):
-        if self.arquivo_pdf and not self.checksum and not self.is_draft:
+        if self.arquivo_pdf and not self.checksum and not self.is_rascunho:
             self.checksum = self.generate_checksum(self.arquivo_pdf)
         super().save(*args, **kwargs)
 
@@ -42,12 +43,7 @@ class Monografia(models.Model):
         except IOError:
             return None
         
-    class Meta:
-        permissions = [
-            ('approve_upload', 'pode aprovar ou não o upload de um arquivo PDF')
-        ]
-
-##
+## BANCA AVALIADORA
 class Banca(models.Model):
     monografia = models.OneToOneField(Monografia, on_delete=models.CASCADE)
     avaliadores = models.ManyToManyField(User, related_name='banca_avaliador', limit_choices_to={'tipo_usuario': 'PROFESSOR'})
