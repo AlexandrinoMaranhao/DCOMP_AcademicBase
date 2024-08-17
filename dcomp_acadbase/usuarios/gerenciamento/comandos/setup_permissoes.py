@@ -48,8 +48,10 @@ class Command(BaseCommand):
 
         # Definir grupos
         groups = {
-            'Funcionario': ['change_monografia', 'view_monografia', 'submit_monografia', 'add_user', 'change_user', 'view_user'],
-            'ChefeSetor': ['add_user', 'change_user', 'view_user', 'delete_user', 'change_monografia', 'view_monografia', 'delete_monografia'],
+            'Funcionario': ['add_monografia', 'change_monografia', 'view_monografia', 'submit_monografia', 'add_user', 'change_user', 'view_user',
+                'add_banca', 'change_banca', 'view_banca'],
+            'ChefeSetor': ['add_monografia', 'change_monografia', 'view_monografia', 'delete_monografia', 'add_user', 'change_user', 'view_user', 'delete_user', 
+                'add_banca', 'change_banca', 'view_banca', 'delete_banca'],
             'Aluno': ['view_monografia'],
             'Professor': ['view_monografia', 'add_banca', 'view_banca'],
             'Externo': []  # Sem permissões específicas
