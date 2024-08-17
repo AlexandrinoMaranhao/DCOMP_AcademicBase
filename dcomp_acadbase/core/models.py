@@ -5,7 +5,7 @@ from django.core.files.storage import default_storage
 from usuarios.models import User
 
 # Create your models here.
-##
+## MODELOS CENTRAIS (pendente mudança)
 class Monografia(models.Model):
     STATUS_CHOICES = [
         ('DEFENDIDA E APROVADA', 'Defendida e Aprovada'),   
@@ -17,6 +17,7 @@ class Monografia(models.Model):
     orientador = models.ForeignKey(User, on_delete=models.CASCADE, related_name='monografia_orientador',limit_choices_to={'tipo_usuario': 'PROFESSOR'})
     status =  models.CharField(max_length=255, choices=STATUS_CHOICES)
     palavras_Chave = models.CharField(max_length=75, blank=True)
+    temas = models.CharField(max_length=75, blank=True)
     data_de_Publicacao = models.DateField("Data de Publicação:")
     quantidade_Paginas = models.PositiveIntegerField()
     arquivo_PDF = models.FileField(upload_to='monografias/')

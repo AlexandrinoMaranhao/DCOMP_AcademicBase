@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 # Create your models here.
-##
+
+## MODELOS DE USUÁRIOS DO SISTEMA
 class User(AbstractUser):
     ROLE_CHOICES = [
         ('FUNCIONARIO','Funcionario'),
@@ -26,5 +27,10 @@ class User(AbstractUser):
     )
 
 class Aluno(User):
-    matricula_SUAP = models.CharField(max_length=100, unique=True)
+    matricula_SUAP = models.CharField(max_length=20, unique=True)
 
+class Professor(User):
+    matricula_SIAPE = models.CharField(max_length=20, unique=True)
+
+class Funcionario (User):
+    matricula_SIAPE = models.CharField(max_length=20, unique=True)
