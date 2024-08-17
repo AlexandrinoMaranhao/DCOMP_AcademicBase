@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 class User(AbstractUser):
     ROLE_CHOICES = [
         ('FUNCIONARIO','Funcionario'),
-        ('CHEFE', 'Chefe do Setor'),
+        ('CHEFE', 'ChefeSetor'),
         ('ALUNO', 'Aluno'),
         ('PROFESSOR', 'Professor'),
         ('EXTERNO', 'Externo')
@@ -27,10 +27,13 @@ class User(AbstractUser):
     )
 
 class Aluno(User):
-    matricula_SUAP = models.CharField(max_length=20, unique=True)
+    matricula_suap = models.CharField(max_length=20, unique=True, verbose_name='Número da Matrícula SUAP')
 
 class Professor(User):
-    matricula_SIAPE = models.CharField(max_length=20, unique=True)
+    matricula_siape = models.CharField(max_length=20, unique=True, verbose_name='Número da Matrícula SIAPE')
 
 class Funcionario (User):
-    matricula_SIAPE = models.CharField(max_length=20, unique=True)
+    matricula_siape = models.CharField(max_length=20, unique=True, verbose_name='Número da Matrícula SIAPE')
+    
+class ChefeSetor (User):
+    matricula_siape = models.CharField(max_length=20, unique=True, verbose_name='Número da Matrícula SIAPE')
