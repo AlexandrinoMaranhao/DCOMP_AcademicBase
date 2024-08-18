@@ -1,3 +1,4 @@
+## core/models.py
 import hashlib
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
@@ -18,7 +19,7 @@ class Monografia(models.Model):
     orientador = models.ForeignKey(User, on_delete=models.CASCADE, related_name='monografia_orientador',limit_choices_to={'tipo_usuario': 'PROFESSOR'})
     status =  models.CharField(max_length=255, choices=STATUS_CHOICES)
     resumo = models.TextField()
-    palavras_chave = models.CharField(max_length=75, blank=True, verbose_name='Palvavras-Chave')
+    palavras_chave = models.CharField(max_length=75, blank=True, verbose_name='Palavras-Chave')
     temas = models.CharField(max_length=75, blank=True)
     data_publicacao = models.DateField(verbose_name='Data de Publicação da Monografia')
     qtd_paginas = models.PositiveIntegerField(verbose_name='Quantidade de Páginas')
@@ -27,7 +28,7 @@ class Monografia(models.Model):
     is_rascunho = models.BooleanField(default=False, verbose_name='Rascunho') ##Lembrete: Quando for draft/rascunho, alguns campos podem ser blank
 
     def save(self, *args, **kwargs):
-        if self.arquivo_pdf and not self.checksum and not self.is_rascunho:
+        if self.arquivo_pdf and not self.is_rascunho:
             self.checksum = self.generate_checksum(self.arquivo_pdf)
         super().save(*args, **kwargs)
 
@@ -42,6 +43,9 @@ class Monografia(models.Model):
                 return hash_md5.hexdigest()
         except IOError:
             return None
+        
+    def __str__(self):
+        return self.titulo
         
 ## BANCA AVALIADORA
 class Banca(models.Model):
