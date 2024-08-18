@@ -22,8 +22,8 @@ class Monografia(models.Model):
     temas = models.CharField(max_length=75, blank=True)
     data_publicacao = models.DateField(verbose_name='Data de Publicação da Monografia')
     qtd_paginas = models.PositiveIntegerField(verbose_name='Quantidade de Páginas')
-    arquivo_pdf = models.FileField(upload_to='monografias/', verbose_name='Arquivo em formato PDF')
-    checksum = models.CharField(max_length=128, blank=True, null=True)
+    arquivo_pdf = models.FileField(upload_to='uploads/monografias/', verbose_name='Arquivo em formato PDF')
+    #checksum = models.CharField(max_length=128, blank=True, null=True)
     is_rascunho = models.BooleanField(default=False, verbose_name='Rascunho') ##Lembrete: Quando for draft/rascunho, alguns campos podem ser blank
 
     def save(self, *args, **kwargs):
