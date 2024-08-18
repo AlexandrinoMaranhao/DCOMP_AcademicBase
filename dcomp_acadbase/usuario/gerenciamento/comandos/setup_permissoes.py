@@ -34,9 +34,6 @@ class Command(BaseCommand):
             ('change_banca', 'EDITAR BANCA', 'banca'),
             ('view_banca', 'VER BANCA', 'banca'),
             ('delete_banca', 'EXCLUIR BANCA', 'banca'),
-
-            #('approve_upload', 'APROVAR UPLOAD'), ## O Chefe do Setor (ROLE = ChefeSetor) deve aprovar o upload, enquanto isso ela fica pendente como rascunho 
-            #('submit_monografia', 'SUBMETER MONOGRAFIA') ##A ideia é que ao submeter no sistema, ela fica pendente para aprovação no caso de um ROLE = Funcionario
         ]
 
         for codename, name, model in custom_permissions:
