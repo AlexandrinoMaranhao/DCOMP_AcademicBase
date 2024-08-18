@@ -4,23 +4,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DCOMP Acadbase - Terminal Web</title>
+  <title>DCOMP Acadbase</title>
   <link rel="stylesheet" href="{% static 'frontend/css/app.css' %}">
 
 </head>
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: green; margin: 0; font-family: Arial, sans-serif;">
-  <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px ; text-align: center; width: 100%; max-width: 400px;">
-    <h1 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #333;">DCOMP AcadBase - Página Inicial</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="text" name="username" placeholder="Usuário" required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-      <input type="password" name="password" placeholder="Senha" required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-      <button type="submit" style="width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Login no Sistema</button>
-    </form>
-    <a href="{% url 'password_reset' %}" style="display: block; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Esqueci a Senha</a>
+
+<body style=" background-color: white; margin: 0; font-family: Arial, sans-serif; padding-top: 60px;padding-bottom: 60px">
+  <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: green">
+    <p style="text-align: center; font-size: 2rem"><strong>DCOMP Acadbase - Terminal Web</strong></p>
+  </header>
+
+  <div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 120px);padding: 1rem; box-sizing: border-box;">
+    <!-- Painel de Login -->
+    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px ; text-align: center; width: 100%; max-width: 400px; margin-right: 4rem;">
+      <h1 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #333;">DCOMP AcadBase - Página Inicial</h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="text" name="username" placeholder="Usuário" required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+        <input type="password" name="password" placeholder="Senha" required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+        <button type="submit" style="width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Login no Sistema</button>
+      </form>
+      <a href="{% url 'password_reset' %}" style="display: block; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Esqueci a Senha</a>
+    </div>
+
+    <!-- Caixa de Orientações e Funcionalidades -->
+    <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
+      <!-- Caixa de Orientações -->
+      <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: left;">
+        <h2 style="font-size: 1.2rem; color: #333;">Orientações para Acesso</h2>
+        <ul style="list-style-type: disc; padding-left: 1.5rem; color: #555;">
+          <li>Use seu nome de usuário e senha para acessar o sistema.</li>
+          <li>Se esquecer a senha, use o link "Esqueci a Senha" para redefini-la.</li>
+          <li>Após o login, você será redirecionado para o painel principal.</li>
+        </ul>
+      </div>
+
+      <!-- Caixa de Funcionalidades -->
+      <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: left;">
+        <h2 style="font-size: 1.2rem; color: #333;">Principais Funcionalidades</h2>
+        <ul style="list-style-type: disc; padding-left: 1.5rem; color: #555;">
+          <li>Cadastro de Monografias/TCCs.</li>
+          <li>Edição de Monografias/TCCs existentes.</li>
+          <li>Remoção de Monografias/TCCs.</li>
+          <li>Acompanhamento do status das submissões.</li>
+          <li>Visualização e download dos arquivos submetidos.</li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <footer>
+
+  <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: black">
+    <p style="color: gold;text-align: center">&copy; {% now "Y" %} <strong>DCOMP AcadBase. Todos os Direitos Reservados</strong></p>
   </footer>
   <script src="{% static 'frontend/js/app.js' %}"></script>
 </body>
