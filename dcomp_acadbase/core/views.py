@@ -35,15 +35,15 @@ def monografia_form(request, pk=None):
 
     if request.method == 'POST' and form.is_valid():
         monografia = form.save(commit=False)  # Salva o objeto Monografia sem gravar no banco de dados
+        print(f"Saving Monografia: {monografia}")  # Debugging: Print instance before savin
         monografia.save()  # Agora salva o objeto, o que gera um ID
-            
-    try:
-        monografia.clean()
-
-        form.save_m2m() 
-        return redirect('index') # Soon to be replaced by panel 'painel'
-    except ValidationError as e:
-        form.add_error('banca_avaliadora', e)  # Adiciona o erro ao formulário
+        print(f"Saved Monografia with ID: {monografia.id}")  # Debugging: Print ID after saving
+        try:
+            monografia.clean()
+            form.save_m2m() 
+            return redirect('index') # Soon to be replaced by panel 'painel'
+        except ValidationError as e:
+            form.add_error('banca_avaliadora', e)  # Adiciona o erro ao formulário
     return render(request, 'core/monografia_form.html', {'form': form})
 
 # @login_required

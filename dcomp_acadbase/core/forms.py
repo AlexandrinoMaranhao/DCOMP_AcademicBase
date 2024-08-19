@@ -15,3 +15,10 @@ class MonografiaForm(forms.ModelForm):
         widgets = {
             'banca_avaliadora': forms.CheckboxSelectMultiple
         }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if commit:
+            instance.save()
+            self.save_m2m()  # Salva as relações ManyToMany após o objeto principal ser salvo
+        return instance
