@@ -32,7 +32,7 @@ class Monografia(models.Model):
 
     #
     def banca_avaliadora_list(self):
-        return ", ".join([str(avaliador) for avaliador in self.banca_avaliadores.all()])
+        return ", ".join([str(avaliador) for avaliador in self.banca_avaliadora.all()])
     banca_avaliadora_list.short_description = 'Banca Avaliadora'
 
     def generate_checksum(self, file_field):
@@ -54,7 +54,6 @@ class Monografia(models.Model):
             raise ValidationError(f'Você deve adicionar pelo menos {min_avaliadores} avaliadores na banca.')
 
     def save(self, *args, **kwargs):
-        self.clean()  # Chama a validação ao salvar
         if self.arquivo_pdf and not self.is_rascunho:
             self.checksum = self.generate_checksum(self.arquivo_pdf)
         super().save(*args, **kwargs)

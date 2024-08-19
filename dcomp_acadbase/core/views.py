@@ -1,9 +1,10 @@
 # dcomp-acadbase/dcomp_acadbase/core/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from rest_framework import viewsets
 from .models import Monografia
 from .serializers import MonografiaSerializer
@@ -29,13 +30,20 @@ def index(request):
 
 @login_required
 def monografia_form(request, pk=None):
-    instance = Monografia.objects.get(pk=pk) if pk else None
+    instance = get_object_or_404(Monografia, pk=pk) if pk else None
     form = MonografiaForm(request.POST or None, request.FILES or None, instance=instance)
 
     if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('index') # Soon to be replaced by panel 'painel'
+        monografia = form.save(commit=False)  # Salva o objeto Monografia sem gravar no banco de dados
+        monografia.save()  # Agora salva o objeto, o que gera um ID
+            
+    try:
+        monografia.clean()
 
+        form.save_m2m() 
+        return redirect('index') # Soon to be replaced by panel 'painel'
+    except ValidationError as e:
+        form.add_error('banca_avaliadora', e)  # Adiciona o erro ao formulário
     return render(request, 'core/monografia_form.html', {'form': form})
 
 # @login_required
@@ -49,6 +57,9 @@ def monografia_list(request):
 
 # @login_required
 # def monografia_edit(request):
+
+# @login_required
+# def monografia_delete(request):
 
 # API (non-functional as of now)
 class MonografiaViewSet(viewsets.ModelViewSet):
