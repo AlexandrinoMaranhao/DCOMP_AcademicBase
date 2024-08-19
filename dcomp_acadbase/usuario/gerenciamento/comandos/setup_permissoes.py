@@ -1,7 +1,8 @@
+# dcomp_acadbase/usuario/gerenciamente/comandos/setup_permissoes.py
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from core.models import Monografia, Banca
+from core.models import Monografia
 from usuario.models import User
 
 class Command(BaseCommand):
@@ -12,7 +13,6 @@ class Command(BaseCommand):
         content_types = {
             'monografia': ContentType.objects.get_for_model(Monografia),
             'user': ContentType.objects.get_for_model(User),
-            'banca': ContentType.objects.get_for_model(Banca),
         }
 
         # Certifique-se de que o ContentType esteja correto
@@ -29,11 +29,6 @@ class Command(BaseCommand):
             ('change_user', 'EDITAR USUÁRIO', 'usuario'),
             ('view_user', 'VER USUÁRIO', 'usuario'),
             ('delete_user', 'EXCLUIR USUÁRIO', 'usuario'),
-
-            ('add_banca', 'ADICIONAR BANCA', 'banca'),
-            ('change_banca', 'EDITAR BANCA', 'banca'),
-            ('view_banca', 'VER BANCA', 'banca'),
-            ('delete_banca', 'EXCLUIR BANCA', 'banca'),
         ]
 
         for codename, name, model in custom_permissions:
@@ -45,12 +40,12 @@ class Command(BaseCommand):
 
         # Definir grupos
         groups = {
-            'Funcionarios': ['add_monografia', 'change_monografia', 'view_monografia', 'submit_monografia', 'add_user', 'change_user', 'view_user',
-                'add_banca', 'change_banca', 'view_banca'],
-            'ChefeSetor': ['add_monografia', 'change_monografia', 'view_monografia', 'delete_monografia', 'add_user', 'change_user', 'view_user', 'delete_user', 
-                'add_banca', 'change_banca', 'view_banca', 'delete_banca'],
+            'Funcionarios': ['add_monografia', 'change_monografia', 'view_monografia', 'submit_monografia', 
+                             'add_user', 'change_user', 'view_user'],
+            'ChefeSetor': ['add_monografia', 'change_monografia', 'view_monografia', 'delete_monografia',
+                             'add_user', 'change_user', 'view_user', 'delete_user'],
             'Alunos': ['view_monografia'],
-            'Professores': ['view_monografia', 'add_banca', 'view_banca'],
+            'Professores': ['view_monografia'],
             'Externo': []  # Sem permissões específicas
         }
 
