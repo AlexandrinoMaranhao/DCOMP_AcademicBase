@@ -1,3 +1,4 @@
+<!-- dcomp-acadbase/dcomp_acadbase/templates/index.html-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,6 @@
       <h1 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #333;">DCOMP AcadBase - Login</h1>
       <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
         <input type="text" name="username" placeholder="Usuário" required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
         <input type="password" name="password" placeholder="Senha" required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
         <button type="submit" style="width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Login no Sistema</button>

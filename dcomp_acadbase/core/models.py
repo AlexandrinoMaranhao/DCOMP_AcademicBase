@@ -31,9 +31,9 @@ class Monografia(models.Model):
     is_rascunho = models.BooleanField(default=False, verbose_name='Rascunho') ##Lembrete: Quando for draft/rascunho, alguns campos podem ser blank
 
     #
-    def banca_avaliadores_list(self):
-        return ", ".join([avaliador.username for avaliador in self.banca_avaliadores.all()])
-    banca_avaliadores_list.short_description = 'Banca Avaliadora'
+    def banca_avaliadora_list(self):
+        return ", ".join([str(avaliador) for avaliador in self.banca_avaliadores.all()])
+    banca_avaliadora_list.short_description = 'Banca Avaliadora'
 
     def generate_checksum(self, file_field):
         # Abre o arquivo em modo binário
@@ -50,7 +50,7 @@ class Monografia(models.Model):
     def clean(self):
         # Define o número mínimo de usuários exigidos
         min_avaliadores = 3
-        if self.banca_avaliadores.count() < min_avaliadores:
+        if self.banca_avaliadora.count() < min_avaliadores:
             raise ValidationError(f'Você deve adicionar pelo menos {min_avaliadores} avaliadores na banca.')
 
     def save(self, *args, **kwargs):

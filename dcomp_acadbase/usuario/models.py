@@ -1,8 +1,10 @@
+# dcomp-acadbase/dcomp_acadbase/usuario/models.py
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 # Create your models here.
 
-## MODELOS DE USUÁRIOS DO SISTEMA
+# MODELO DE USUÁRIOS DO SISTEMA
 class User(AbstractUser):
     ROLE_CHOICES = [
         ('FUNCIONARIO','Funcionario'),
