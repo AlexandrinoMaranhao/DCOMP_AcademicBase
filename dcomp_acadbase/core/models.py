@@ -46,12 +46,6 @@ class Monografia(models.Model):
                 return hash_md5.hexdigest()
         except IOError:
             return None
-    
-    def clean(self):
-        # Define o número mínimo de usuários exigidos
-        min_avaliadores = 3
-        if self.banca_avaliadora.count() < min_avaliadores:
-            raise ValidationError(f'Você deve adicionar pelo menos {min_avaliadores} avaliadores na banca.')
 
     def save(self, *args, **kwargs):
         if self.arquivo_pdf and not self.is_rascunho:
