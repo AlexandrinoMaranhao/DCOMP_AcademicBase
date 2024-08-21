@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from rest_framework import viewsets
 from .models import Monografia
@@ -35,10 +35,18 @@ def monografia_create(request, pk=None):
 
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
-            print(f'Saved Monografia with ID: {Monografia.id}') #Debugging: Print ID after saving
-            messages.success(request, 'Monografia salva com sucesso!')  
-            return redirect('monografia_list')
+            user = form.get_user()
+            auth_login(request, user)
+            # Redirecionamento baseado no tipo de usuário
+            if user.tipo_usuario == 'FUNCIONARIO' or user.tipo_usuario == 'CHEFE':
+                return redirect('monografia_create')  # Redireciona para o formulário de monografia
+            elif user.tipo_usuario == 'ALUNO' or user.tipo_usuario == 'PROFESSOR' or user.tipo_usuario == 'EXTERNO':
+                return redirect('monografia_list')  # Redireciona para a lista de monografias (apenas visualização)
+            return redirect('monografia_list') # Redirecionaria para Painel Geral das Opções de Cadastro, Edição e Remoção
+        form.save()
+        print(f'Saved Monografia with ID: {Monografia.id}') #Debugging: Print ID after saving
+        messages.success(request, 'Monografia salva com sucesso!')  
+        return redirect('monografia_list')
     else: 
         messages.error(request, 'Erro ao salvar monografia. Verifique os dados fornecidos.')
         form = MonografiaForm()
