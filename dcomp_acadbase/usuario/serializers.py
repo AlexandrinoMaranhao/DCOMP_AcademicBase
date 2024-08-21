@@ -23,3 +23,5 @@ class LoginUserSerializer(serializers.Serializer):
        if user is None:
            raise serializers.ValidationError('Credenciais inválidas')
        return data
+   
+# class LogoutUserSerializer(serializers.Serializer):

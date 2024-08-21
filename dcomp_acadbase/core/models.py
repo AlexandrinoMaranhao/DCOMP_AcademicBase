@@ -1,5 +1,5 @@
-# dcomp_acadbase/core/models.py
-import hashlib
+# dcomp-acadbase/dcomp_acadbase/core/models.py
+import hashlib, codecs
 from django.db import models
 #from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.core.files.storage import default_storage
@@ -27,7 +27,6 @@ class Monografia(models.Model):
     data_publicacao = models.DateField(verbose_name='Data de Publicação da Monografia')
     qtd_paginas = models.PositiveIntegerField(verbose_name='Quantidade de Páginas')
     arquivo_pdf = models.FileField(upload_to='media/uploads/monografias/', verbose_name='Arquivo em formato PDF')
-    #checksum = models.CharField(max_length=128, blank=True, null=True)
     is_rascunho = models.BooleanField(default=False, verbose_name='Rascunho') ##Lembrete: Quando for draft/rascunho, alguns campos podem ser blank
 
     #
@@ -37,20 +36,27 @@ class Monografia(models.Model):
 
     def generate_checksum(self, file_field):
         # Abre o arquivo em modo binário
+        h= hashlib.md5()
         try:
             with default_storage.open(file_field.name, 'rb') as file:
-                hash_md5 = hashlib.md5()
 
                 for chunk in iter(lambda: file.read(4096), b""):
-                    hash_md5.update(chunk)
-                return hash_md5.hexdigest()
+                    h.update(chunk)
+                return h.hexdigest()
         except IOError:
             return None
 
     def save(self, *args, **kwargs):
         if self.arquivo_pdf and not self.is_rascunho:
-            self.checksum = self.generate_checksum(self.arquivo_pdf)
+            checksum = self.generate_checksum(self.arquivo_pdf)
+            print('\n'+ checksum) #Debugging Checksum Generation
+            try:
+                with open('core/checksum/checksum_logs.txt', 'a') as file:
+                    file.write(checksum + ';\n')
+            except IOError:
+                return None
         super().save(*args, **kwargs)
+        
 
     def __str__(self):
         return self.titulo

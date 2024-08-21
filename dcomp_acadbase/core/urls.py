@@ -6,17 +6,16 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
-router.register(r'monografias', views.MonografiaViewSet)
+router.register(r'monografias-api', views.MonografiaViewSet)
 
 urlpatterns = [
     #URLs padrão
     path('', views.index, name='index'),
-    # path('core/painel', views.painel, name='painel')
-    path('core/monografia/', views.monografia_form, name='monografia_form'),  # URL para o formulário de criação de monografia
-    path('monografia/<int:pk>/', views.monografia_form, name='monografia_edit'), # URL para editar monografia
-    # path('', monografia_delete, name='monografia_delete)
-    # path('', monografia_edit)
-    path('core/monografia/list/', views.monografia_list, name='monografia_list'),  # URL para a lista de monografias
+    path('core/monografia/new/', views.monografia_create, name='monografia_create'),  # URL para o formulário de criação de monografia - CREATE
+    path('core/monografia/list/', views.monografia_list, name='monografia_list'),  # URL para a lista de monografias - READ
+    path('core/monografia/edit/<int:pk>/', views.monografia_edit, name='monografia_edit'), # URL para editar monografia - UPDATE
+    path('core/monografia/delete/<int:pk>/', views.monografia_delete, name='monografia_delete'), # URL para excluir monografia - DELETE
+    path('core/monografia/detail/<int:pk>/', views.monografia_detail, name='monografia_detail'),
     path('api/', include(router.urls)),
 
     # URLs de redefinição de senha

@@ -1,4 +1,4 @@
-# dcomp-acadbase/dcomp_acadbase/usuario/gerenciamente/comandos/setup_permissoes.py
+# dcomp-acadbase/dcomp_acadbase/usuario/gerenciamento/comandos/setup_permissoes.py
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
@@ -41,10 +41,10 @@ class Command(BaseCommand):
 
         # Definir grupos
         groups = {
-            'Funcionarios': ['add_monografia', 'change_monografia', 'view_monografia', 'submit_monografia', 
-                             'add_user', 'change_user', 'view_user'],
-            'ChefeSetor': ['add_monografia', 'change_monografia', 'view_monografia', 'delete_monografia',
-                             'add_user', 'change_user', 'view_user', 'delete_user'],
+            'Funcionarios': ['add_monografia', 'change_monografia', 'view_monografia', 'submit_monografia'], 
+                             #'add_user', 'change_user', 'view_user'],
+            'ChefeSetor': ['add_monografia', 'change_monografia', 'view_monografia', 'delete_monografia'],
+                             #'add_user', 'change_user', 'view_user', 'delete_user'],
             'Alunos': ['view_monografia'],
             'Professores': ['view_monografia'],
             'Externo': []  # Sem permissões específicas

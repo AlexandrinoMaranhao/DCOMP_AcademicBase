@@ -1,4 +1,4 @@
-<!-- dcomp-acadbase/dcomp_acadbase/core/templates/core/monografia_form.html -->
+<!-- dcomp-acadbase/dcomp_acadbase/core/templates/core/monografia_form.html --> 
  {% load static %}
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 </head>
 <body style="margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; padding-top: 60px;">
     <div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 120px); padding: 1rem; box-sizing: border-box; padding-bottom: 60px;">
-        <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; width: 100%; max-width: 800px;">
+        <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; width: 100%; max-width: 950px;">
             <h1 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #333;">
                 Formulário para Cadastro e Inserção de Dados da Monografia
             </h1>
@@ -17,16 +17,6 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" style="width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Salvar e Subir</button>
-                {% if form.instance.pk %}
-                <div style="margin-top: 1rem;">
-                    <a href="{% url 'monografia_delete' form.instance.pk %}" style="text-decoration: none;">
-                        <button type="button" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #dc3545; color: white; cursor: pointer;">Remover</button>
-                    </a>
-                    <a href="{% url 'monografia_edit' form.instance.pk %}" style="text-decoration: none;">
-                        <button type="button" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #28a745; color: white; cursor: pointer; margin-top: 0.5rem;">Editar</button>
-                    </a>
-                </div>
-                {% endif %}
             </form>
         </div>
     </div>
