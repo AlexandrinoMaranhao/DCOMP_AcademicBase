@@ -1,46 +1,44 @@
-<!-- dcomp-acadbase/dcomp_acadbase/core/templates/core/monografia_detail.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCOMP AcadBase - Detalhes da Monografia</title>
+    <title>DCOMP AcadBase - Terminal Web</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"></script>
 </head>
 <body style="background-color: white; margin: 0; font-family: Arial, sans-serif; padding-top: 60px; padding-bottom: 60px;">
-    <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: green; text-align: center; font-size: 2rem; color: white; padding: 1rem;">
+    <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: green; text-align: center; font-size: 2rem; color: black; padding: 1rem;">
         Instituto Federal do Maranhão - DCOMP
+        <img src="{% static 'images/ifma_logo.png' %}" alt="Logo do IFMA" style="position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); height: 50px;">
     </header>
 
     <div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 120px); padding: 1rem; box-sizing: border-box;">
-        <!-- Caixa de Detalhes da Monografia -->
         <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 50%; margin-right: 0.5rem;">
             <h1>Detalhes da Monografia: {{ monografia.titulo }}</h1>
-            <p><strong>Autor:</strong> {{ monografia.autor.get_full_name }}</p>
+            <p><strong>Autor:</strong> {{ monografia.autor }}</p>
             <p><strong>Curso:</strong> {{ monografia.curso }}</p>
-            <p><strong>Orientador:</strong> {{ monografia.orientador.get_full_name }}</p>
+            <p><strong>Orientador:</strong> {{ monografia.orientador }}</p>
             <p><strong>Banca Avaliadora:</strong> {{ monografia.banca_avaliadora.all|join:", " }}</p>
-            <p><strong>Status:</strong> {{ monografia.get_status_display }}</p>
+            <p><strong>Status:</strong> {{ monografia.status }}</p>
             <p><strong>Resumo:</strong> {{ monografia.resumo }}</p>
             <p><strong>Palavras-Chave:</strong> {{ monografia.palavras_chave }}</p>
             <p><strong>Temas:</strong> {{ monografia.temas }}</p>
             <p><strong>Data de Defesa:</strong> {{ monografia.data_defesa }}</p>
             <p><strong>Data de Publicação:</strong> {{ monografia.data_publicacao }}</p>
             <p><strong>Quantidade de Páginas:</strong> {{ monografia.qtd_paginas }}</p>
-            <p><strong>Arquivo PDF:</strong> <a href="{{ monografia.arquivo_pdf.url }}" style="color: #007bff; text-decoration: none;" download>Download</a></p>
-            <p><strong>Rascunho:</strong> {{ monografia.is_rascunho|yesno:"Sim,Não" }}</p>
+            <p><strong>Rascunho:</strong> {{ monografia.is_rascunho }}</p>
             <a href="{% url 'monografia_list' %}" style="color: #007bff; text-decoration: none; display: block; margin-top: 1rem;">Voltar para a lista</a>
             <form method="post" action="{% url 'monografia_edit' monografia.pk %}" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #28a745; color: white; cursor: pointer; margin-top: 1rem;">Editar</button>
+                <button type="submit" style="margin-bottom: 0.5rem; width: 90%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #28a745; color: white; cursor: pointer; margin-top: 1rem;">Editar</button>
             </form>
             <form method="post" action="{% url 'monografia_delete' monografia.pk %}" style="display: inline; margin-top: 0.5rem;">
                 {% csrf_token %}
-                <button type="submit" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #dc3545; color: white; cursor: pointer;">Remover</button>
+                <button type="submit" style="width: 90%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #dc3545; color: white; cursor: pointer;">Remover</button>
             </form>
+            <a href="{{ monografia.arquivo_pdf.url }}" download="monografia.pdf" style="display: block; width: 87.4%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #17a2b8; color: white; text-align: center; text-decoration: none; margin-top: 0.5rem;">Download PDF</a>
         </div>
-        <!-- Caixa de Visualização PDF -->
         <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 50%;">
             <h2>Visualizador PDF</h2>
             <canvas id="pdf-viewer" style="width: 100%; height: 100%;"></canvas>
@@ -72,15 +70,5 @@
     <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; text-align: center; color: gold; padding: 1rem;">
         &copy; {% now "Y" %} <strong>DCOMP AcadBase. Todos os Direitos Reservados</strong>
     </footer>
-
-    {% if messages %}
-        <div style="position: fixed; top: 60px; right: 0; background: #f8d7da; color: #721c24; padding: 1rem; border: 1px solid #f5c6cb; border-radius: 4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 1rem; width: 300px;">
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
 </body>
 </html>
-
-

@@ -66,8 +66,9 @@ def monografia_edit(request, pk):
            return redirect('monografia_list')
       else:
        messages.error(request, 'Erro ao atualizar monografia. Verifique os dados fornecidos.')
+       form = MonografiaForm(instance=monografia)
 
-    return render(request, 'core/monografia_form.html', {'form': form})
+    return render(request, 'core/monografia_form.html', {'form': form,})
 
 # DELETE
 @login_required

@@ -15,7 +15,7 @@ urlpatterns = [
     path('core/monografia/list/', views.monografia_list, name='monografia_list'),  # URL para a lista de monografias - READ
     path('core/monografia/edit/<int:pk>/', views.monografia_edit, name='monografia_edit'), # URL para editar monografia - UPDATE
     path('core/monografia/delete/<int:pk>/', views.monografia_delete, name='monografia_delete'), # URL para excluir monografia - DELETE
-    path('core/monografia/detail/<int:pk>/', views.monografia_detail, name='monografia_detail'),
+    path('core/monografia/detail/<int:pk>/', views.monografia_detail, name='monografia_detail'), # URL para visualizar detalhes - DETAIL
     path('api/', include(router.urls)),
 
     # URLs de redefinição de senha

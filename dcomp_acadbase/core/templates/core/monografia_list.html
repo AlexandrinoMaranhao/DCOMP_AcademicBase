@@ -1,4 +1,3 @@
-<!-- dcomp-acadbase/dcomp_acadbase/core/templates/core/monografia_list.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +7,9 @@
     <title>DCOMP Acadbase - Terminal Web</title>
 </head>
 <body style="background-color: white; margin: 0; font-family: Arial, sans-serif; padding-top: 60px; padding-bottom: 60px;">
-    <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: green;">
-        <p style="text-align: center; font-size: 2rem;"><strong>Instituto Federal do Maranhão - DCOMP</strong></p>
-        <img style="position: fixed; top: 0;left: 0;" src='' alt='Logo do IFMA'>
+    <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: green; text-align: center; font-size: 2rem; color: black; padding: 1rem;">
+        Instituto Federal do Maranhão - DCOMP
+        <img src="{% static 'images/ifma_logo.png' %}" alt="Logo do IFMA" style="position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); height: 50px;">
     </header>
     
     <div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 120px); padding: 1rem; box-sizing: border-box;">
@@ -32,14 +31,18 @@
                         <strong>{{ monografia.titulo }}</strong><br>
                         Autor: {{ monografia.autor }}<br>
                         Data de Apresentação: {{ monografia.data_apresentacao }}<br>
-                        <a href="{% url 'monografia_detail' monografia.pk %}" style="color: #007bff; text-decoration: none;">Ver detalhes
+                        <a href="{% url 'monografia_detail' monografia.pk %}" style="color: #007bff; text-decoration: none; display: block; margin-top: 0.5rem;">Ver detalhes
                         </a>
-                        <a href="{% url 'monografia_delete' monografia.pk %}" style="text-decoration: none;">
-                        <button type="button" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #dc3545; color: white; cursor: pointer;">Remover</button>
+                        <form method="post" action="{% url 'monografia_delete' monografia.pk %}" style="display: inline;">
+                        <a href="{% url 'monografia_delete' monografia.pk %}" style="text-decoration: none; display: block; margin-top: 0.5rem;">
+                            <button type="button" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #dc3545; color: white; cursor: pointer;">Remover</button>
                         </a>
-                        <a href="{% url 'monografia_edit' monografia.pk %}" style="text-decoration: none;">
-                        <button type="button" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #28a745; color: white; cursor: pointer; margin-top: 0.5rem;">Editar</button>
+                        </form>
+                        <form method="post" action="{% url 'monografia_edit' monografia.pk %}" style="display: inline; margin-top: 0.5rem;">
+                        <a href="{% url 'monografia_edit' monografia.pk %}" style="text-decoration: none; display: block; margin-top: 0.5rem;">
+                            <button type="button" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #28a745; color: white; cursor: pointer;">Editar</button>
                         </a>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
@@ -51,3 +54,4 @@
     </footer>
 </body>
 </html>
+
