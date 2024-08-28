@@ -35,21 +35,14 @@ def monografia_create(request, pk=None):
 
     if request.method == 'POST':
         if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user)
-            # Redirecionamento baseado no tipo de usuário
-            if user.tipo_usuario == 'FUNCIONARIO' or user.tipo_usuario == 'CHEFE':
-                return redirect('monografia_create')  # Redireciona para o formulário de monografia
-            elif user.tipo_usuario == 'ALUNO' or user.tipo_usuario == 'PROFESSOR' or user.tipo_usuario == 'EXTERNO':
-                return redirect('monografia_list')  # Redireciona para a lista de monografias (apenas visualização)
-            return redirect('monografia_list') # Redirecionaria para Painel Geral das Opções de Cadastro, Edição e Remoção
-        form.save()
-        print(f'Saved Monografia with ID: {Monografia.id}') #Debugging: Print ID after saving
-        messages.success(request, 'Monografia salva com sucesso!')  
-        return redirect('monografia_list')
-    else: 
-        messages.error(request, 'Erro ao salvar monografia. Verifique os dados fornecidos.')
-        form = MonografiaForm()
+            #monografia.user = request.user
+            form.save()
+            print(f'Saved Monografia with ID: {Monografia.id}') #Debugging: Print ID after saving
+            messages.success(request, 'Monografia salva com sucesso!')  
+            return redirect('monografia_list')
+        else: 
+            messages.error(request, 'Erro ao salvar monografia. Verifique os dados fornecidos.')
+            form = MonografiaForm()
     return render(request, 'core/monografia_form.html', {'form': form})
 
 # READ
@@ -87,7 +80,8 @@ def monografia_delete(request, pk):
       monografia.delete()
       messages.success(request, 'Monografia removida com sucesso!')
       return redirect('monografia_list')
-  messages.error(request, 'Erro ao remover monografia.')
+  else:
+    messages.error(request, 'Erro ao remover monografia.')
   return render(request, 'core/monografia_confirm_delete.html', {'form': form})
 
 # DETAILS

@@ -38,24 +38,32 @@ class Monografia(models.Model):
         # Abre o arquivo em modo binário
         h= hashlib.md5()
         try:
+            print(f"Generating checksum for file: {file_field.name}")
             with default_storage.open(file_field.name, 'rb') as file:
 
                 for chunk in iter(lambda: file.read(4096), b""):
                     h.update(chunk)
+                print(f"Checksum generated: ")
                 return h.hexdigest()
         except IOError:
+            print(f"Error generating checksum: ")
             return None
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         if self.arquivo_pdf and not self.is_rascunho:
+            print(f"Arquivo PDF Type: {type(self.arquivo_pdf)}")
             checksum = self.generate_checksum(self.arquivo_pdf)
+            if checksum is None:
+                checksum = "checksum_failed"
+
             print('\n'+ checksum) #Debugging Checksum Generation
             try:
                 with open('core/checksum/checksum_logs.txt', 'a') as file:
                     file.write(checksum + ';\n')
             except IOError:
                 return None
-        super().save(*args, **kwargs)
+        
         
 
     def __str__(self):
