@@ -52,3 +52,61 @@
     </footer>
 </body>
 </html>
+
+<!--
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCOMP Acadbase</title>
+</head>
+<body style="background-color: white; margin: 0; font-family: Arial, sans-serif; padding-top: 60px; padding-bottom: 60px;">
+    <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: green; text-align: center; font-size: 2rem; color: black; padding: 1rem;">
+        <strong>DCOMP Acadbase - Terminal Web<strong>
+        <img src="{% static 'images/ifma_logo.png' %}" alt="Logo do IFMA" style="position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); height: 75px; width: 75px;">
+    </header>
+    
+    <div style="display: flex; justify-content: center; align-items: flex-start; height: calc(100vh - 120px); padding: 1rem; box-sizing: border-box;">
+         <!-- Caixa de Pesquisa >
+        <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px; text-align: center; width: 100%; max-width: 400px; margin-right: 2rem;">
+            <h1 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #333;">Buscar Monografias</h1>
+            <form method="get" action="">
+                <input type="text" name="search" placeholder="Digite um termo para buscar..." required style="width: 90%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+                <button type="submit" style="width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #007bff; color: white; cursor: pointer;">Buscar</button>
+            </form>
+        </div>
+
+        <!-- Caixa de Lista de Monografias >
+        <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px; text-align: left; width: 100%; max-width: 800px; height: calc(100vh - 120px); overflow-y: auto;">
+            <h2 style="text-align: left; font-size: 1.2rem; color: #333;">Lista de Monografias:</h2>
+            <ul style="list-style-type: none; padding-left: 0; color: #555;">
+                {% for monografia in monografias %}
+                    <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: white; border-radius: 4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <strong>{{ monografia.titulo }}</strong><br>
+                        Autor: {{ monografia.autor }}<br>
+                        Data de Apresentação: {{ monografia.data_apresentacao }}<br>
+                        <a href="{% url 'monografia_detail' monografia.pk %}" style="color: #007bff; text-decoration: none; display: block; margin-top: 0.5rem;">Ver detalhes</a>
+                        <form method="post" action="{% url 'monografia_edit' monografia.pk %}" style="display: inline; margin-top: 0.5rem;">
+                            {% csrf_token %}
+                            <button type="submit" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #28a745; color: white; cursor: pointer;">Editar</button>
+                        </form>
+                        <form method="post" action="{% url 'monografia_delete' monografia.pk %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="width: 100%; padding: 0.75rem; border: none; border-radius: 4px; font-size: 1rem; background-color: #dc3545; color: white; cursor: pointer;">Remover</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; color: gold; text-align: center; padding: 1rem;">
+        <p>&copy; {% now "Y" %} <strong>DCOMP AcadBase. Todos os Direitos Reservados</strong></p>
+    </footer>
+</body>
+</html>
+
+-->
+
