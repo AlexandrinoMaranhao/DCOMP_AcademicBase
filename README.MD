@@ -12,5 +12,5 @@
  - pip install -r requirements.txt
  - py manage.py runserver
  
-OBS 1: Caso haja erros de import, realize o passo acima novamente
-OBS 2: Talvez ocorra uns erros no Settings.py em razão de eu estar usando um arquivo .env para ocultar partes sensíveis como a chave secreta
+### OBS 1: Caso haja erros de import, realize o passo acima novamente 
+### OBS 2: Talvez ocorra uns erros no Settings.py em razão de eu estar usando um arquivo .env para ocultar partes sensíveis como a chave secreta
