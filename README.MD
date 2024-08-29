@@ -6,6 +6,7 @@
 
 ## Instruções para teste local na máquina:
 
+ - Branch que deve ser instalado para teste: development
  - Clone o repositório
  - Inicie o virtual environment (venv)
  - pip install -r requirements.txt
